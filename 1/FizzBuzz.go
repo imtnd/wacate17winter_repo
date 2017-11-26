@@ -19,7 +19,7 @@ func main() {
 		fmt.Println("引数は整数で指定してください")
 	}
 	for i := 1; i < max+1; i++ {
-		// 3か5で割り切れるとき
+		// 3で割り切れ、5でも割り切れるとき
 		if i%3 == 0 || i%5 == 0 {
 			fmt.Println("FizzBuzz")
 			// 3で割り切れるとき
