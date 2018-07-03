@@ -15,11 +15,10 @@ type price_inc_tax struct {
 }
 
 func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	var p float64
+	var p int
 	//パラメータを取得
 	queryValues := r.URL.Query()
-	//パラメータをfloat32型に変換
-	p, _ = strconv.ParseFloat(queryValues.Get("price"), 32)
+	p,_ = strconv.Atoi(queryValues.Get("price"))
 	// パラメータの値が0のときはエラー
 	if p == 0 {
 		e := price_inc_tax{Err: "値段をパラメータに入れてね"}
@@ -28,8 +27,8 @@ func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	}
 	var full_p int32
 	var tax int32
-	full_p = (int32)(p * 1.08)
-	tax = (int32)(p * 0.08)
+	full_p = (int32) (p * 108 / 100)
+	tax = (int32) (p * 8 / 100)
 	price_include_tax := price_inc_tax{Price: full_p, Tax: tax}
 
 	json.NewEncoder(w).Encode(price_include_tax)
